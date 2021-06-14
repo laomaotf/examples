@@ -1,10 +1,11 @@
-def modelFloatDownloadUrl = "https://tfhub.dev/tensorflow/lite-model/mobilenet_v1_1.0_224/1/metadata/1?lite-format=tflite"
+def modelFloatDownloadUrl = "https://hub.tensorflow.google.cn/tensorflow/lite-model/mobilenet_v1_1.0_224/1/metadata/1?lite-format=tflite"
 def modelFloatFile = "mobilenet_v1_1.0_224.tflite"
-def modelQuantDownloadUrl = "https://tfhub.dev/tensorflow/lite-model/mobilenet_v1_1.0_224_quantized/1/metadata/1?lite-format=tflite"
+def modelQuantDownloadUrl = "https://hub.tensorflow.google.cn/tensorflow/lite-model/mobilenet_v1_1.0_224_quantized/1/metadata/1?lite-format=tflite"
 def modelQuantFile = "mobilenet_v1_1.0_224_quant.tflite"
-def modelEfficientNetFloatDownloadUrl = "https://tfhub.dev/tensorflow/lite-model/efficientnet/lite0/fp32/2?lite-format=tflite"
+//def modelEfficientNetFloatDownloadUrl = "https://hub.tensorflow.google.cn/tensorflow/lite-model/efficientnet/lite0/fp32/2?lite-format=tflite"
+def modelEfficientNetFloatDownloadUrl =  "https://hub.tensorflow.google.cn/tensorflow/efficientnet/lite0/classification/2?lite-format=tflite"
 def modelEfficientNetFloatFile = "efficientnet-lite0-fp32.tflite"
-def modelEfficientNetQuantDownloadUrl = "https://tfhub.dev/tensorflow/lite-model/efficientnet/lite0/int8/2?lite-format=tflite"
+def modelEfficientNetQuantDownloadUrl = "https://hub.tensorflow.google.cn/tensorflow/lite-model/efficientnet/lite0/int8/2?lite-format=tflite"
 def modelEfficientNetQuantFile = "efficientnet-lite0-int8.tflite"
 
 
@@ -33,7 +34,8 @@ task downloadEfficientNetQuant(type: Download) {
     overwrite false
 }
 
-preBuild.dependsOn downloadModelFloat
-preBuild.dependsOn downloadModelQuant
-preBuild.dependsOn downloadEfficientNetFloat
-preBuild.dependsOn downloadEfficientNetQuant
+//not load any model online
+//preBuild.dependsOn downloadModelFloat
+//preBuild.dependsOn downloadModelQuant
+//preBuild.dependsOn downloadEfficientNetFloat
+//preBuild.dependsOn downloadEfficientNetQuant

@@ -69,6 +69,8 @@ public abstract class Classifier {
   /** An instance of the driver class to run model inference with Tensorflow Lite. */
   protected final ImageClassifier imageClassifier;
 
+  protected static List<String> labels_all;
+
   /**
    * Creates a classifier with the provided configuration.
    *
@@ -80,6 +82,7 @@ public abstract class Classifier {
    */
   public static Classifier create(Activity activity, Model model, Device device, int numThreads)
       throws IOException {
+    labels_all = FileUtil.loadLabels(activity, "labels.txt"); //加载类别名列表
     if (model == Model.QUANTIZED_MOBILENET) {
       return new ClassifierQuantizedMobileNet(activity, device, numThreads);
     } else if (model == Model.FLOAT_MOBILENET) {
@@ -87,7 +90,7 @@ public abstract class Classifier {
     } else if (model == Model.FLOAT_EFFICIENTNET) {
       return new ClassifierFloatEfficientNet(activity, device, numThreads);
     } else if (model == Model.QUANTIZED_EFFICIENTNET) {
-      return new ClassifierQuantizedEfficientNet(activity, device, numThreads);
+      return new ClassifierQuantizedEfficientNet(activity, device, numThreads); //INIT
     } else {
       throw new UnsupportedOperationException();
     }
@@ -255,9 +258,10 @@ public abstract class Classifier {
     final ArrayList<Recognition> recognitions = new ArrayList<>();
     // All the demo models are single head models. Get the first Classifications in the results.
     for (Category category : classifications.get(0).getCategories()) {
+      String title = labels_all.get(Integer.parseInt(category.getLabel())); //把ID转换成类别名
       recognitions.add(
           new Recognition(
-              "" + category.getLabel(), category.getLabel(), category.getScore(), null));
+              "" + category.getLabel(), title, category.getScore(), null));
     }
     return recognitions;
   }
